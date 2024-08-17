@@ -47,7 +47,11 @@ function changeCar() {
 //     console.log('person.name发生变化')
 // })
 
-watch(() => person.car, (a, b) => {
+// watch(() => person.car, (a, b) => {
+//     console.log('监视', a, b)
+// }, { deep: true })
+
+watch([person.car, () => person.name], (a, b) => {
     console.log('监视', a, b)
 }, { deep: true })
 </script>
