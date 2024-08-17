@@ -1,50 +1,31 @@
 <template>
     <!-- html -->
     <div class="person">
-        <h2>一辆{{ car.brand }}汽车，价格是{{ car.price }}万</h2>
-        <button @click="changePrice">修改汽车价格</button>
-        <button @click="changeCar">修改汽车</button>
-        <hr>
-        <ul>
-            <li v-for="item in games" :key="item.id">{{ item.name }}</li>
-        </ul>
-        <button @click="changeFirstGame">修改第一个游戏名字</button>
-        <br>
-        <h2>当前总和{{ sum }}</h2>
-        <button @click="changeSum">总和+5</button>
-
+        <h2>姓名：{{ name }}</h2>
+        <h2>年龄：{{ person.age }}</h2>
+        <button @click="changeName">修改姓名</button>
+        <button @click="changeAge">修改年龄</button>
     </div>
 </template>
 
 <script lang="ts" setup name='Person'>
-import { ref, reactive } from 'vue';
+import { ref, reactive, toRefs } from 'vue';
+let person = reactive({
+    name: '张三',
+    age: 18
+})
 
-let car = ref({ brand: '奔驰', price: 1000 })
-let games = reactive([
-    { id: 1, name: '王者荣耀' },
-    { id: 2, name: '原神' },
-    { id: 3, name: '刺激战场' }
-])
-let sum = ref(0)
+let { name, age } = toRefs(person)
 
-function changePrice() {
-    car.value.price += 10
+function changeName() {
+    name.value += '@'
 }
-
-function changeCar() {
-    // car.price += 10
-    // Object.assign(car, { brand: '特斯拉', price: 15 }) reactive
-    car.value = { brand: '特斯拉', price: 15 }
-}
-
-function changeFirstGame() {
-    games[0].name = 'heiheihei'
-}
-
-function changeSum() {
-    sum.value += 5
+function changeAge() {
+    person.age++
 }
 </script>
+
+
 
 <style>
 /* css */
