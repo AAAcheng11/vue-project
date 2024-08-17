@@ -12,28 +12,28 @@
 </template>
 
 <script lang="ts" setup name='Person'>
-import { reactive } from 'vue';
+import { ref,reactive } from 'vue';
 
-let car = reactive({ brand: '奔驰', price: 1000 })
-let games = reactive([
+let car = ref({ brand: '奔驰', price: 1000 })
+let games = ref([
     { id: 1, name: '王者荣耀' },
     { id: 2, name: '原神' },
     { id: 3, name: '刺激战场' }
 ])
 
 function changePrice() {
-    car.price += 10
+    car.value.price += 10
 }
 
 function changeFirstGame(){
-    games[0].name='heiheihei'
+    games.value[0].name='heiheihei'
 }
 </script>
 
 <style>
 /* css */
 .person {
-    background-color: #fff;
+    background-color: skyblue;
     box-shadow: 0 0 10px;
     border-radius: 10px;
     padding: 20px;
