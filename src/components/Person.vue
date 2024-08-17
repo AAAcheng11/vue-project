@@ -10,27 +10,27 @@
 </template>
 
 <script lang="ts" setup name='Person'>
-import { ref, watch } from 'vue';
+import { reactive, watch } from 'vue';
 // 数据求和
-let person = ref({
+let person = reactive({
     name: '张三',
     age: 18
 })
 function changName() {
-    person.value.name += '#'
+    person.name += '#'
 }
 
 function changAge() {
-    person.value.age += 2
+    person.age += 2
 }
 
 function changePerson() {
-    person.value = { name: 'lisi', age: 19 }
+    Object.assign(person, { name: 'lisi', age: 19 })
 }
 
-watch(person, () => {
-
-}, { deep: true }) //监控ref对象时，开启深度监控才可以看到具体属性变化
+watch(person, (newValue, oldValue) => {
+    console.log('person变化了', newValue, oldValue)
+})
 
 </script>
 
