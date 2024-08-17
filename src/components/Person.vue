@@ -1,27 +1,36 @@
 <template>
     <!-- html -->
     <div class="person">
-        <h2>当前求和：{{ sum }}</h2>
-        <button @click="changeSum">++++++++</button>
+        <h2>姓名：{{ person.name }}</h2>
+        <h2>年龄：{{ person.age }}</h2>
+        <button @click="changName">修改名字</button>
+        <button @click="changAge">修改年龄</button>
+        <button @click="changePerson">修改</button>
     </div>
 </template>
 
 <script lang="ts" setup name='Person'>
 import { ref, watch } from 'vue';
 // 数据求和
-let sum = ref(0)
-
-function changeSum() {
-    sum.value += 5
+let person = ref({
+    name: '张三',
+    age: 18
+})
+function changName() {
+    person.value.name += '#'
 }
 
-let stopWatch = watch(sum, (newValue, oldValue) => {
-    console.log(newValue, oldValue)
-    console.log('sum变化了')
-    if (newValue > 20) {
-        stopWatch()
-    }
-})
+function changAge() {
+    person.value.age += 2
+}
+
+function changePerson() {
+    person.value = { name: 'lisi', age: 19 }
+}
+
+watch(person, () => {
+
+}, { deep: true }) //监控ref对象时，开启深度监控才可以看到具体属性变化
 
 </script>
 
