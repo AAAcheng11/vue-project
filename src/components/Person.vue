@@ -1,41 +1,27 @@
 <template>
     <!-- html -->
     <div class="person">
-        姓：<input type="text" v-model="firstName">
-        <br>
-        名：<input type="text" v-model="lastName">
-        <br>
-        全名：<span>{{ fullName }}</span>
-        <button @click="changeFullName">修改全名</button>
+        <h2>当前求和：{{ sum }}</h2>
+        <button @click="changeSum">++++++++</button>
     </div>
 </template>
 
 <script lang="ts" setup name='Person'>
-import { ref, computed } from 'vue';
+import { ref, watch } from 'vue';
+// 数据求和
+let sum = ref(0)
 
-let firstName = ref('张')
-let lastName = ref('三')
-
-//计算属性是只读的
-// let fullName = computed(() => {
-//     return firstName.value + lastName.value
-// })
-let fullName = computed({
-    get(){
-        return firstName.value + lastName.value
-    },
-    set(val){
-        const [str1,str2] = val.split('-')
-        console.log(str1)
-        console.log(str2)
-        firstName.value = str1
-        lastName.value = str2
-    }
-})
-function changeFullName() {
-    fullName.value = 'li-si'
+function changeSum() {
+    sum.value += 5
 }
 
+let stopWatch = watch(sum, (newValue, oldValue) => {
+    console.log(newValue, oldValue)
+    console.log('sum变化了')
+    if (newValue > 20) {
+        stopWatch()
+    }
+})
 
 </script>
 
